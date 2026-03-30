@@ -39,6 +39,9 @@ Ao receber uma tarefa que envolva criar novo recurso, feature ou configurar o pr
 | `/frontend-conventions` | Consultar convenções detalhadas de código frontend |
 | `/frontend-state-routing` | Consultar padrões de estado (Signals) e roteamento |
 | `/frontend-tabler` | Consultar integração e classes do Tabler.io |
+| `/security-review` | Auditoria de segurança (auth, OWASP, DB, dependências) |
+| `/scalability-review` | Revisar escalabilidade (API, PostgreSQL, Redis, RabbitMQ) |
+| `/researcher` | Conduzir pesquisa estruturada para decisão técnica |
 
 <!-- TODO: criar skills quando estes docs forem escritos:
   docs/domain.md → /domain-reference
