@@ -43,3 +43,39 @@ Checklists para inicialização do projeto. Execute uma única vez ao criar um n
 - [ ] Prefixo `app-` configurado em `angular.json`
 - [ ] `tsconfig.json` com `strict: true`
 - [ ] `.gitignore` configurado (node_modules, dist, .angular)
+
+---
+
+## Templates de Configuração do Frontend
+
+### environment.ts
+
+```typescript
+export const environment = {
+  production: false,
+  apiUrl: 'http://localhost:5000/api'
+};
+```
+
+### app.config.ts
+
+```typescript
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideRouter(appRoutes, withViewTransitions()),
+    provideHttpClient(
+      withInterceptors([authInterceptor, errorInterceptor])
+    ),
+  ],
+};
+```
+
+### auth.interceptor.ts
+
+```typescript
+export const authInterceptor: HttpInterceptorFn = (req, next) => {
+  const token = inject(AuthService).getToken();
+  if (token) req = req.clone({ setHeaders: { Authorization: `Bearer ${token}` } });
+  return next(req);
+};
+```

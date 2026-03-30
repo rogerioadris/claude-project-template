@@ -19,7 +19,7 @@ public sealed class Example
     // Construtor público para criação via domínio
     public Example(string name, string description)
     {
-        Id          = Guid.NewGuid();
+        Id          = Guid.CreateVersion7(); // UUID v7 obrigatório — nunca Guid.NewGuid()
         Name        = name;
         Description = description;
         CreatedAt   = DateTime.UtcNow; // sempre UtcNow, nunca DateTime.Now

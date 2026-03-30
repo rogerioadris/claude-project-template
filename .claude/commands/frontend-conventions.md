@@ -23,10 +23,6 @@
 - Prefixo `app-` em todos os seletores (configurar em `angular.json`).
 - Exemplo: `app-example-list`, `app-login-form`.
 
-## Commits
-
-- Padrão **Conventional Commits** em português: `feat(examples): adiciona filtro por status`.
-
 ## Cobertura de Testes
 
 - Mínimo de **80%** de cobertura para serviços.
@@ -50,70 +46,11 @@
 
 ## Models
 
-```typescript
-// Interfaces sem prefixo "I" — nunca IExample
-export interface Example {
-  id: string;
-  name: string;
-  description: string;
-  isActive: boolean;
-  createdAt: string;
-}
+- Interfaces sem prefixo "I" — nunca `IExample`, sempre `Example`
+- Enums com valores `SCREAMING_SNAKE_CASE`
+- DTOs de criação/atualização separados da interface principal
 
-export interface ExamplePaginated {
-  data: Example[];
-  total: number;
-  page: number;
-  lastPage: number;
-}
-
-export interface CreateExampleDto {
-  name: string;
-  description: string;
-}
-
-// Enums com valores SCREAMING_SNAKE_CASE
-export enum AppRole {
-  ADMIN     = 'Admin',
-  EMPLOYEE  = 'Employee',
-}
-```
-
----
-
-## Configuração de Infraestrutura
-
-### environment.ts
-
-```typescript
-export const environment = {
-  production: false,
-  apiUrl: 'http://localhost:5000/api'
-};
-```
-
-### app.config.ts
-
-```typescript
-export const appConfig: ApplicationConfig = {
-  providers: [
-    provideRouter(appRoutes, withViewTransitions()),
-    provideHttpClient(
-      withInterceptors([authInterceptor, errorInterceptor])
-    ),
-  ],
-};
-```
-
-### auth.interceptor.ts
-
-```typescript
-export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  const token = inject(AuthService).getToken();
-  if (token) req = req.clone({ setHeaders: { Authorization: `Bearer ${token}` } });
-  return next(req);
-};
-```
+> Templates de Model, Service, interceptor e configuração disponíveis via `/frontend-new-feature` e `/project-bootstrap`
 
 ---
 

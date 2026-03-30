@@ -14,38 +14,9 @@
 
 ## Store com Signals
 
-```typescript
-@Injectable({ providedIn: 'root' })
-export class ExampleStore {
-  private readonly _items     = signal<Example[]>([]);
-  private readonly _isLoading = signal(false);
-  private readonly _filtro    = signal('');
+Padrão: signals privados + getters readonly + computed para derivações + métodos para mutação.
 
-  // Expor como readonly para fora
-  readonly items     = this._items.asReadonly();
-  readonly isLoading = this._isLoading.asReadonly();
-
-  readonly itemsFiltrados = computed(() => {
-    const filtro = this._filtro().toLowerCase();
-    return this._items().filter(i =>
-      i.name.toLowerCase().includes(filtro) ||
-      i.description.toLowerCase().includes(filtro)
-    );
-  });
-
-  readonly totalInativos = computed(() =>
-    this._items().filter(i => !i.isActive).length
-  );
-
-  setItems(items: Example[]): void  { this._items.set(items); }
-  setLoading(v: boolean): void      { this._isLoading.set(v); }
-  setFiltro(v: string): void        { this._filtro.set(v); }
-
-  adicionarItem(item: Example): void {
-    this._items.update(lista => [...lista, item]);
-  }
-}
-```
+> Template completo do Store disponível via `/frontend-new-feature` (Passo 3)
 
 ---
 

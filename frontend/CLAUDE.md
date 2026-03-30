@@ -37,18 +37,13 @@ npm run lint
 
 ## Regras Inegociáveis
 
-- **Standalone components** — NgModules são proibidos.
-- `ChangeDetectionStrategy.OnPush` em **todos** os componentes, sem exceção.
-- Injeção via `inject()` — nunca via construtor com `@Inject`.
-- Inputs via `input()` signal, outputs via `output()` — não usar `@Input()` / `@Output()`.
-- `@if`, `@for`, `@switch` — nunca `*ngIf`, `*ngFor`. `track` obrigatório no `@for`.
-- **Signals** para estado local e compartilhado; RxJS apenas para HTTP e WebSockets.
-- **Lazy loading** em todos os feature modules via `loadChildren` / `loadComponent`.
-- Chamadas HTTP apenas em **services**, nunca em componentes.
-- Nunca usar `any` — preferir `unknown` quando o tipo não é conhecido.
-- Não misturar outras bibliotecas de UI (Angular Material, PrimeNG) com Tabler.
-- Prefixo `app-` em todos os seletores de componentes.
-- Interfaces para contratos de API; types para uniões e utilitários.
-- `readonly` em propriedades de objetos de valor.
+- **Standalone only** — NgModules proibidos. `OnPush` em tudo. `inject()` sempre.
+- **Signals API:** `input()`, `output()`, `signal()`, `computed()` — nunca decorators legados.
+- **Control flow:** `@if`/`@for`/`@switch` — nunca `*ngIf`/`*ngFor`. `track` obrigatório.
+- **Signals** para estado; **RxJS** apenas para HTTP e WebSockets.
+- **Lazy loading** obrigatório. HTTP só em services. `any` proibido. Prefixo `app-`.
+- **Tabler.io exclusivo** — nunca misturar com Angular Material, PrimeNG, etc.
+
+> Lista completa via `/frontend-conventions`
 
 > Checklist de início de projeto disponível via `/project-bootstrap`

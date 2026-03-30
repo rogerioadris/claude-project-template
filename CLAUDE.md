@@ -30,6 +30,7 @@ Ao receber uma tarefa que envolva criar novo recurso, feature ou configurar o pr
 | Comando | Quando usar |
 |---------|-------------|
 | `/project-bootstrap` | Setup inicial do projeto (backend + frontend) |
+| `/fullstack-feature` | Criar recurso completo (backend + frontend juntos) |
 | `/backend-new-feature` | Criar novo recurso/entidade no backend |
 | `/backend-architecture` | Consultar arquitetura, CQRS flow, estrutura de pastas |
 | `/backend-conventions` | Consultar convenções detalhadas de código backend |
@@ -74,6 +75,7 @@ Ao concluir qualquer item do TASKS.md, atualize o arquivo imediatamente:
 
 Faça isso como parte do commit de cada item — nunca deixe o TASKS.md desatualizado.
 
-## Commit Automático
+## Commits
 
-Ao finalizar qualquer tarefa solicitada pelo usuário, **sempre crie um commit** com as alterações realizadas. Não espere o usuário pedir — commitar faz parte da conclusão da tarefa.
+- **Commit automático:** ao finalizar qualquer tarefa, **sempre crie um commit**. Não espere o usuário pedir.
+- **Conventional Commits** em português: `feat(examples): adiciona filtro por status`, `fix(auth): corrige validação de token expirado`.
