@@ -116,3 +116,36 @@ await app.InitializeDatabaseAsync();
 app.UseApiPipeline();
 app.Run();
 ```
+
+---
+
+## Nomenclatura de Projetos
+
+```
+{NomeProjeto}.Domain
+{NomeProjeto}.Application
+{NomeProjeto}.Infrastructure
+{NomeProjeto}.API
+{NomeProjeto}.Workers          ← Background Services
+{NomeProjeto}.Tests
+```
+
+---
+
+## Pacotes NuGet Obrigatórios
+
+```xml
+<!-- Application -->
+MediatR 12.*, FluentValidation 11.*, ErrorOr 2.*
+
+<!-- Infrastructure -->
+Microsoft.EntityFrameworkCore 8.*, Npgsql.EntityFrameworkCore.PostgreSQL 8.*
+BCrypt.Net-Next 4.*, Microsoft.AspNetCore.Authentication.JwtBearer 8.*
+StackExchange.Redis, MassTransit.RabbitMQ (ou RabbitMQ.Client)
+
+<!-- API -->
+Swashbuckle.AspNetCore 6.*
+
+<!-- Tests -->
+xUnit, Moq, FluentAssertions
+```

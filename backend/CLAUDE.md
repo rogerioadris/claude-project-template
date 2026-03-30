@@ -34,46 +34,15 @@ dotnet ef database update --project src/{NomeProjeto}.Infrastructure --startup-p
 docker compose up -d
 ```
 
-## Resumo das Convenções
+## Resumo das Convenções (específicas do backend)
 
 - **Clean Architecture:** `Domain` → `Application` → `Infrastructure` → `API`
 - **CQRS via MediatR:** toda operação passa por `Command` ou `Query`
-- **ErrorOr:** handlers retornam `ErrorOr<T>` — nunca use `throw` para erros de negócio
 - **Controllers** delegam 100% para `IMediator` — sem lógica de negócio
-- **Entidades:** sem setters públicos; toda mutação via métodos; construtor privado para EF Core
-- **`long`** para valores monetários — nunca `decimal` ou `float`
-- **`DateTime.UtcNow`** sempre — nunca `DateTime.Now`
 - **Query Handlers:** `.AsNoTracking()` + projeção `.Select()` para DTO
 - Nunca exponha entidades de domínio — mapeie para DTO
-- **Commit git** ao final de cada conjunto de alterações (mensagem em pt-br)
+- Construtor `private` para EF Core em todas as entidades
 
-> Detalhes completos em [`docs/conventions.md`](docs/conventions.md)
+> Detalhes completos via `/backend-conventions`
 
-## Pacotes NuGet Principais
-
-```xml
-<!-- Application -->
-MediatR 12.*, FluentValidation 11.*, ErrorOr 2.*
-
-<!-- Infrastructure -->
-Microsoft.EntityFrameworkCore 8.*, Npgsql.EntityFrameworkCore.PostgreSQL 8.*
-BCrypt.Net-Next 4.*, Microsoft.AspNetCore.Authentication.JwtBearer 8.*
-StackExchange.Redis, MassTransit.RabbitMQ (ou RabbitMQ.Client)
-
-<!-- API -->
-Swashbuckle.AspNetCore 6.*
-
-<!-- Tests -->
-xUnit, Moq, FluentAssertions
-```
-
-## Nomenclatura de Projetos
-
-```
-{NomeProjeto}.Domain
-{NomeProjeto}.Application
-{NomeProjeto}.Infrastructure
-{NomeProjeto}.API
-{NomeProjeto}.Workers          ← Background Services
-{NomeProjeto}.Tests
-```
+> Pacotes NuGet e nomenclatura de projetos disponíveis via `/backend-templates`

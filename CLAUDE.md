@@ -25,18 +25,27 @@ Toda documentação, comentários e mensagens de commit devem ser escritos em **
 
 ## Skills Disponíveis
 
-Use estes comandos para carregar documentação detalhada sob demanda:
+Ao receber uma tarefa que envolva criar novo recurso, feature ou configurar o projeto, **invoque o skill correspondente automaticamente** antes de começar a implementar. Não espere o usuário pedir.
 
 | Comando | Quando usar |
 |---------|-------------|
+| `/project-bootstrap` | Setup inicial do projeto (backend + frontend) |
 | `/backend-new-feature` | Criar novo recurso/entidade no backend |
 | `/backend-architecture` | Consultar arquitetura, CQRS flow, estrutura de pastas |
 | `/backend-conventions` | Consultar convenções detalhadas de código backend |
-| `/backend-templates` | Templates de infraestrutura (Pipeline, DI, Program.cs) |
+| `/backend-templates` | Templates de infraestrutura (Pipeline, DI, Program.cs, NuGet) |
 | `/frontend-new-feature` | Criar nova feature no frontend Angular |
 | `/frontend-conventions` | Consultar convenções detalhadas de código frontend |
 | `/frontend-state-routing` | Consultar padrões de estado (Signals) e roteamento |
 | `/frontend-tabler` | Consultar integração e classes do Tabler.io |
+
+<!-- TODO: criar skills quando estes docs forem escritos:
+  docs/domain.md → /domain-reference
+  docs/database.md → /database-schema
+  docs/auth.md → /auth-reference
+  backend/docs/infra.md → /backend-infra
+  backend/docs/api.md → /api-reference
+-->
 
 ## Regras Absolutas (memorize — valem sempre)
 

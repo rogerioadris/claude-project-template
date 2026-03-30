@@ -11,20 +11,6 @@ Orientações específicas para o frontend. Consulte o `CLAUDE.md` raiz para idi
 
 ---
 
-## Stack
-
-| Tecnologia      | Versão   | Observação                        |
-|-----------------|----------|-----------------------------------|
-| Angular         | 21.x     | Standalone Components obrigatório |
-| TypeScript      | 5.7+     | `strict: true` ativado            |
-| Node.js         | 22.x LTS | Versão mínima requerida           |
-| RxJS            | 7.x      | Bundled com Angular 21            |
-| Angular Signals | nativo   | Preferido sobre BehaviorSubject   |
-| Tabler.io       | 1.x      | Via npm                           |
-| Tabler Icons    | 3.x      | SVG sprite ou font                |
-
----
-
 ## Comandos Comuns
 
 ```bash
@@ -65,21 +51,4 @@ npm run lint
 - Interfaces para contratos de API; types para uniões e utilitários.
 - `readonly` em propriedades de objetos de valor.
 
----
-
-## Checklist de Início de Projeto
-
-Execute uma única vez ao iniciar um novo projeto baseado neste template:
-
-- [ ] Projeto Angular criado (`ng new {nome} --routing --style=scss`)
-- [ ] Tabler.io instalado (`npm install @tabler/core @tabler/icons`)
-- [ ] `styles.scss` configurado importando Tabler após `_variables.scss`
-- [ ] `_variables.scss` com cores e variáveis do projeto
-- [ ] `environment.ts` com `apiUrl` apontando para o backend
-- [ ] `app.config.ts` com `provideRouter(appRoutes, withViewTransitions())`
-- [ ] Auth interceptor + error interceptor registrados em `app.config.ts`
-- [ ] `authGuard` implementado e aplicado no layout principal
-- [ ] Layout principal (`main-layout`) com sidebar e navbar criados
-- [ ] Prefixo `app-` configurado em `angular.json`
-- [ ] `tsconfig.json` com `strict: true`
-- [ ] `.gitignore` configurado (node_modules, dist, .angular)
+> Checklist de início de projeto disponível via `/project-bootstrap`
