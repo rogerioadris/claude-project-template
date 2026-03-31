@@ -78,6 +78,24 @@ Ao concluir qualquer item do TASKS.md, atualize o arquivo imediatamente:
 
 Faça isso como parte do commit de cada item — nunca deixe o TASKS.md desatualizado.
 
+## Quando em Dúvida
+
+- Não sabe se é Command ou Query? → Se modifica estado = Command. Se só lê = Query.
+- Não sabe se precisa de `IAuthorizedRequest`? → Se é endpoint público (login, health) = não. Todo o resto = sim.
+- Não sabe se precisa de RedLock? → Se modifica saldo ou estado concorrente = sim. Senão = não.
+- Não sabe se cria teste unitário ou integração? → Handler = unitário. Controller/endpoint = integração.
+
+## Anti-patterns (nunca faça isso)
+
+- Lógica de negócio no Controller
+- `throw new Exception()` para erros de negócio (use ErrorOr)
+- `DateTime.Now` em qualquer lugar (use `DateTime.UtcNow`)
+- Query sem `.AsNoTracking()`
+- Entidade exposta na response (use DTO)
+- `*ngIf` ou `*ngFor` (use @if / @for)
+- `@Input()` ou `@Output()` (use `input()` / `output()`)
+- `any` em TypeScript (use tipo explícito ou `unknown`)
+
 ## Commits
 
 - **Commit automático:** ao finalizar qualquer tarefa, **sempre crie um commit**. Não espere o usuário pedir.
