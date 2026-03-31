@@ -2,26 +2,28 @@
   "hooks": {
     "PostToolUse": [
       {
-        "matcher": {
-          "tool": "Edit",
-          "filePath": "frontend/**/*.ts"
-        },
-        "command": "cd frontend && npx eslint --fix $CLAUDE_FILE_PATH 2>/dev/null || true"
-      },
-      {
-        "matcher": {
-          "tool": "Edit",
-          "filePath": "backend/**/*.cs"
-        },
-        "command": "cd backend && dotnet build --nologo -v q 2>&1 | tail -3"
+        "matcher": "Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "case \"$CLAUDE_FILE_PATH\" in frontend/*.ts) cd frontend && npx eslint --fix $CLAUDE_FILE_PATH 2>/dev/null || true ;; esac"
+          },
+          {
+            "type": "command",
+            "command": "case \"$CLAUDE_FILE_PATH\" in backend/*.cs) cd backend && dotnet build --nologo -v q 2>&1 | tail -3 ;; esac"
+          }
+        ]
       }
     ],
     "PreToolUse": [
       {
-        "matcher": {
-          "tool": "Read"
-        },
-        "command": "lines=$(wc -l < \"$CLAUDE_FILE_PATH\" 2>/dev/null || echo 0); [ \"$lines\" -gt 500 ] && echo \"AVISO: arquivo com $lines linhas. Considere ler apenas a parte necessária.\" || true"
+        "matcher": "Read",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "lines=$(wc -l < \"$CLAUDE_FILE_PATH\" 2>/dev/null || echo 0); [ \"$lines\" -gt 500 ] && echo \"AVISO: arquivo com $lines linhas. Considere ler apenas a parte necessária.\" || true"
+          }
+        ]
       }
     ]
   }
