@@ -68,6 +68,17 @@ Skills são documentação sob demanda invocada via `/nome-do-skill` no Claude C
 | `/security-review` | Auditoria de segurança (auth, OWASP, DB) |
 | `/scalability-review` | Revisar escalabilidade (API, PostgreSQL, Redis, RabbitMQ) |
 | `/researcher` | Conduzir pesquisa estruturada para decisão técnica |
+| `/auth-reference` | Autenticação (JWT, BCrypt) e autorização (roles, permissões, guards) |
+| `/code-review` | Checklist de revisão de código (bugs, segurança, performance) |
+| `/testing` | Padrões de teste unitário e integração |
+| `/docker-infra` | Docker Compose (PostgreSQL, Redis, RabbitMQ) e manutenção |
+| `/api-design` | Design de API REST: endpoints, paginação, versionamento |
+| `/logging-observability` | Serilog, correlation ID, health checks |
+| `/background-workers` | Background Services, MassTransit, retry, DLQ |
+| `/database-migrations` | Migrations EF Core, índices, particionamento |
+| `/refactoring` | Renomear features, extrair componentes com segurança |
+| `/performance` | N+1, cache Redis, bundle size, EXPLAIN ANALYZE |
+| `/git-workflow` | Branching, Conventional Commits, PR template |
 
 ## Regras Absolutas
 

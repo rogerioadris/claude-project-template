@@ -43,6 +43,16 @@ Ao receber uma tarefa que envolva criar novo recurso, feature ou configurar o pr
 | `/scalability-review` | Revisar escalabilidade (API, PostgreSQL, Redis, RabbitMQ) |
 | `/researcher` | Conduzir pesquisa estruturada para decisão técnica |
 | `/auth-reference` | Autenticação (JWT, BCrypt) e autorização (roles, permissões, guards) |
+| `/code-review` | Checklist de revisão de código (bugs, segurança, performance, convenções) |
+| `/testing` | Padrões de teste unitário e integração (xUnit, Moq, Jasmine, TestBed) |
+| `/docker-infra` | Docker Compose (PostgreSQL, Redis, RabbitMQ), appsettings, manutenção |
+| `/api-design` | Design de API REST: endpoints, paginação, versionamento, Swagger |
+| `/logging-observability` | Serilog, correlation ID, health checks, o que logar vs nunca logar |
+| `/background-workers` | Background Services, MassTransit consumers, retry, DLQ, idempotência |
+| `/database-migrations` | Migrations EF Core, índices, particionamento, seed data |
+| `/refactoring` | Renomear features, extrair componentes, mover lógica com segurança |
+| `/performance` | N+1, compiled queries, cache Redis, bundle size, EXPLAIN ANALYZE |
+| `/git-workflow` | Branching, Conventional Commits, PR template, release workflow |
 
 <!-- TODO: criar skills quando estes docs forem escritos:
   docs/domain.md → /domain-reference
