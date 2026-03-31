@@ -42,11 +42,11 @@ Ao receber uma tarefa que envolva criar novo recurso, feature ou configurar o pr
 | `/security-review` | Auditoria de segurança (auth, OWASP, DB, dependências) |
 | `/scalability-review` | Revisar escalabilidade (API, PostgreSQL, Redis, RabbitMQ) |
 | `/researcher` | Conduzir pesquisa estruturada para decisão técnica |
+| `/auth-reference` | Autenticação (JWT, BCrypt) e autorização (roles, permissões, guards) |
 
 <!-- TODO: criar skills quando estes docs forem escritos:
   docs/domain.md → /domain-reference
   docs/database.md → /database-schema
-  docs/auth.md → /auth-reference
   backend/docs/infra.md → /backend-infra
   backend/docs/api.md → /api-reference
 -->
