@@ -21,7 +21,7 @@ Template pré-configurado para projetos fullstack com **Claude Code**. Inclui co
 ├── frontend/
 │   └── CLAUDE.md              # Convenções e comandos do frontend
 ├── .claude/
-│   ├── commands/              # 24 skills para Claude Code
+│   ├── commands/              # 29 skills para Claude Code
 │   └── settings.json          # Hooks de automação
 ├── .github/
 │   └── pull_request_template.md
@@ -35,7 +35,7 @@ Template pré-configurado para projetos fullstack com **Claude Code**. Inclui co
 
 ## Pré-requisitos
 
-- [.NET SDK 8+](https://dotnet.microsoft.com/download)
+- [.NET SDK 9+](https://dotnet.microsoft.com/download)
 - [Node.js 22 LTS](https://nodejs.org/)
 - [Docker](https://www.docker.com/) (PostgreSQL, Redis, RabbitMQ)
 - [Claude Code](https://claude.ai/code) (CLI ou extensão IDE)
@@ -85,6 +85,11 @@ Skills são documentação sob demanda invocada via `/nome-do-skill` no Claude C
 | `/refactoring` | Renomear features, extrair componentes com segurança |
 | `/performance` | N+1, cache Redis, bundle size, EXPLAIN ANALYZE |
 | `/git-workflow` | Branching, Conventional Commits, PR template |
+| `/error-handling` | Middleware global, ErrorOr→HTTP, interceptor Angular |
+| `/configuration` | Options pattern, appsettings, secrets, variáveis de ambiente |
+| `/deployment` | Dockerfiles multi-stage, CI/CD GitHub Actions |
+| `/distributed-patterns` | Outbox Pattern, Saga MassTransit, OpenTelemetry |
+| `/angular-forms` | Reactive Forms tipados, validação, máscaras |
 
 ## Regras Absolutas
 
