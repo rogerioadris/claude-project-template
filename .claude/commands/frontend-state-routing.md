@@ -120,3 +120,120 @@ Rotas que exigem role específica combinam `authGuard` + `roleGuard` com `data`:
 ```
 
 O `roleGuard` lê `route.data['requiredRole']` e aplica a hierarquia de roles. Acesso insuficiente redireciona para `/unauthorized`.
+
+---
+
+## Signal ↔ RxJS Interop
+
+| Função | Direção | Uso |
+|--------|---------|-----|
+| `toSignal()` | Observable → Signal | Respostas HTTP, dados assíncronos |
+| `toObservable()` | Signal → Observable | Raro — quando precisa de operadores RxJS |
+
+### Exemplo: HTTP como Signal no Store
+
+```typescript
+@Injectable({ providedIn: 'root' })
+export class ExampleStore {
+  private readonly http = inject(HttpClient);
+
+  private readonly _refresh = signal(0);
+
+  readonly items = toSignal(
+    toObservable(this._refresh).pipe(
+      switchMap(() => this.http.get<Example[]>('/api/v1/examples')),
+    ),
+    { initialValue: [] },
+  );
+
+  refresh(): void {
+    this._refresh.update(v => v + 1);
+  }
+}
+```
+
+> `toSignal()` faz auto-subscribe e auto-unsubscribe. Sempre forneça `initialValue` para evitar `undefined`.
+
+---
+
+## effect()
+
+Use `effect()` para side-effects que dependem de valores de signals.
+
+### Quando usar
+
+- Sincronizar filtro com `localStorage`
+- Registrar analytics
+- Logar mudanças de estado para debug
+
+### Exemplo
+
+```typescript
+export class ExampleListComponent {
+  readonly filtro = signal('');
+
+  constructor() {
+    effect(() => {
+      localStorage.setItem('example-filtro', this.filtro());
+    });
+  }
+}
+```
+
+### Regras
+
+- **Nunca** escreva em signals dentro de `effect()` sem `allowSignalWrites`
+- Se precisar escrever, passe a opção explicitamente:
+
+```typescript
+effect(() => {
+  this.total.set(this.items().length);
+}, { allowSignalWrites: true });
+```
+
+- Prefira `computed()` em vez de `effect()` + `set()` sempre que possível
+- `effect()` roda no mínimo 1 vez (na criação) e depois a cada mudança dos signals lidos
+
+---
+
+## @defer
+
+Carregamento lazy de componentes inline — sem necessidade de rotas separadas.
+
+### Quando usar
+
+- Componentes pesados (gráficos, editores, mapas)
+- Conteúdo abaixo do fold
+- Seções que o usuário pode nunca acessar
+
+### Condições disponíveis
+
+| Condição | Dispara quando |
+|----------|---------------|
+| `@defer (on viewport)` | Elemento entra no viewport |
+| `@defer (on interaction)` | Usuário interage (click, focus) |
+| `@defer (on idle)` | Browser está idle |
+| `@defer (on timer(5s))` | Após tempo especificado |
+| `@defer (when condition)` | Expressão booleana é `true` |
+
+### Exemplo: gráfico pesado carregado ao entrar no viewport
+
+```html
+@defer (on viewport) {
+  <app-revenue-chart [data]="chartData()" />
+} @placeholder {
+  <div class="card placeholder-glow" style="height: 300px">
+    <div class="card-body">
+      <span class="placeholder col-12 h-100"></span>
+    </div>
+  </div>
+} @loading (minimum 300ms) {
+  <div class="d-flex justify-content-center py-5">
+    <div class="spinner-border text-primary"></div>
+  </div>
+} @error {
+  <div class="alert alert-danger">Erro ao carregar gráfico.</div>
+}
+```
+
+> Use `@placeholder` com skeleton Tabler para evitar layout shift. Use `@loading (minimum Xms)` para evitar flash de spinner.

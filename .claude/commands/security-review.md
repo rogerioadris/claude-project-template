@@ -141,6 +141,49 @@ Permissions-Policy: camera=(), microphone=(), geolocation=()
 
 ---
 
+## CORS Configuration
+
+```csharp
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("Production", policy =>
+    {
+        policy.WithOrigins("https://app.exemplo.com")
+              .AllowAnyMethod()
+              .AllowAnyHeader()
+              .AllowCredentials();
+    });
+});
+
+// NUNCA usar AllowAnyOrigin() com AllowCredentials()
+// O browser rejeita a resposta e a spec CORS proíbe essa combinação
+```
+
+- Em desenvolvimento, use `https://localhost:4200` como origin explícita
+- Nunca use `AllowAnyOrigin()` em produção
+- `AllowCredentials()` é necessário para enviar cookies (refresh token, XSRF)
+
+---
+
+## Security Headers Middleware
+
+```csharp
+app.Use(async (context, next) =>
+{
+    context.Response.Headers.Append("X-Content-Type-Options", "nosniff");
+    context.Response.Headers.Append("X-Frame-Options", "DENY");
+    context.Response.Headers.Append("Referrer-Policy", "strict-origin-when-cross-origin");
+    context.Response.Headers.Append("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
+    await next();
+});
+```
+
+- Adicione **antes** de `app.UseRouting()` e `app.MapControllers()`
+- `Content-Security-Policy` deve ser configurado separadamente conforme a necessidade do frontend (scripts, styles, fonts)
+- Em produção, adicione também `Strict-Transport-Security` via HTTPS middleware
+
+---
+
 ## Checklist de Revisão Rápida
 
 - [ ] Todos os inputs validados via FluentValidation?
@@ -155,3 +198,6 @@ Permissions-Policy: camera=(), microphone=(), geolocation=()
 - [ ] Refresh token com rotação e blacklist via Redis?
 - [ ] Secrets em `appsettings.Development.json` nunca commitados?
 - [ ] RedLock usado em operações concorrentes de saldo?
+- [ ] CORS configurado com origins explícitas (nunca `AllowAnyOrigin` com credentials)?
+- [ ] Security headers adicionados via middleware?
+- [ ] Content-Security-Policy configurado?

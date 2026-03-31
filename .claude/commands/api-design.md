@@ -178,6 +178,67 @@ public async Task<IActionResult> Create(...)
 
 ---
 
+## Rate Limiting (.NET 9)
+
+```csharp
+// Program.cs
+builder.Services.AddRateLimiter(options =>
+{
+    options.AddFixedWindowLimiter("fixed", opt =>
+    {
+        opt.PermitLimit = 100;
+        opt.Window = TimeSpan.FromMinutes(1);
+    });
+
+    options.AddSlidingWindowLimiter("login", opt =>
+    {
+        opt.PermitLimit = 5;
+        opt.Window = TimeSpan.FromMinutes(1);
+        opt.SegmentsPerWindow = 2;
+    });
+
+    options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+});
+
+// Controller
+[EnableRateLimiting("login")]
+[HttpPost("login")]
+public async Task<IActionResult> Login(...)
+```
+
+- `fixed`: limite geral para endpoints públicos (100 req/min)
+- `login`: limite restritivo para autenticação (5 req/min com janela deslizante)
+- Combine com Redis para cenários distribuídos (múltiplas instâncias)
+
+---
+
+## API Versioning com Asp.Versioning
+
+```csharp
+// NuGet: Asp.Versioning.Http, Asp.Versioning.Mvc.ApiExplorer
+builder.Services.AddApiVersioning(options =>
+{
+    options.DefaultApiVersion = new ApiVersion(1, 0);
+    options.AssumeDefaultVersionWhenUnspecified = true;
+    options.ReportApiVersions = true;
+}).AddApiExplorer(options =>
+{
+    options.GroupNameFormat = "'v'VVV";
+    options.SubstituteApiVersionInUrl = true;
+});
+
+// Controller
+[ApiVersion("1.0")]
+[Route("api/v{version:apiVersion}/[controller]")]
+public sealed class UsersController : ControllerBase { ... }
+```
+
+- Sempre via URL prefix (`/api/v1/`) — nunca header ou query param
+- `ReportApiVersions = true` adiciona header `api-supported-versions` nas respostas
+- `SubstituteApiVersionInUrl = true` permite que o Swagger gere URLs corretas
+
+---
+
 ## Checklist
 
 - [ ] Endpoints em plural, kebab-case, sem verbos
@@ -188,3 +249,5 @@ public async Task<IActionResult> Create(...)
 - [ ] Swagger com `[ProducesResponseType]` em todas as actions
 - [ ] Valores monetários em centavos (long) inclusive na API
 - [ ] Datas em UTC (ISO 8601)
+- [ ] Rate limiting configurado em endpoints públicos e de login
+- [ ] API versioning via URL prefix (`/api/v1/`)

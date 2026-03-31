@@ -198,13 +198,12 @@ Crie `src/app/features/{feature}/components/{feature}-list/`
 
 ```typescript
 import { Component, signal, computed, inject, input, output, ChangeDetectionStrategy } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-example-list',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [RouterLink],
   templateUrl: './example-list.component.html',
   styleUrl: './example-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush, // SEMPRE OnPush
@@ -312,7 +311,7 @@ Crie `src/app/features/{feature}/components/{feature}-form/`
 ```typescript
 @Component({ standalone: true, imports: [ReactiveFormsModule], ... })
 export class ExampleFormComponent {
-  private readonly fb = inject(FormBuilder);
+  private readonly fb = inject(NonNullableFormBuilder);
   readonly isSubmitting = signal(false);
 
   readonly form = this.fb.group({

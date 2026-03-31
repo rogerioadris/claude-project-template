@@ -177,6 +177,58 @@ public sealed class ExamplesControllerTests : IClassFixture<WebApplicationFactor
 
 ---
 
+## Backend — Testes de Integração com Testcontainers
+
+Alternativa ao banco in-memory: containers Docker reais para testes mais fiéis ao ambiente de produção.
+
+```csharp
+// NuGet: Testcontainers.PostgreSql
+public sealed class IntegrationTestFactory : WebApplicationFactory<Program>, IAsyncLifetime
+{
+    private readonly PostgreSqlContainer _postgres = new PostgreSqlBuilder()
+        .WithImage("postgres:16-alpine")
+        .Build();
+
+    protected override void ConfigureWebHost(IWebHostBuilder builder)
+    {
+        builder.ConfigureServices(services =>
+        {
+            services.RemoveAll<DbContextOptions<AppDbContext>>();
+            services.AddDbContext<AppDbContext>(options =>
+                options.UseNpgsql(_postgres.GetConnectionString()));
+        });
+    }
+
+    public async Task InitializeAsync() => await _postgres.StartAsync();
+    public async Task DisposeAsync() => await _postgres.DisposeAsync();
+}
+
+// Uso
+public sealed class UsersControllerTests(IntegrationTestFactory factory)
+    : IClassFixture<IntegrationTestFactory>
+{
+    private readonly HttpClient _client = factory.CreateClient();
+
+    [Fact]
+    public async Task CreateUser_ReturnsCreated()
+    {
+        var response = await _client.PostAsJsonAsync("/api/v1/users", new { Name = "João", Email = "joao@email.com" });
+        response.StatusCode.Should().Be(HttpStatusCode.Created);
+    }
+
+    [Fact]
+    public async Task GetAll_ReturnsOk()
+    {
+        var response = await _client.GetAsync("/api/v1/users");
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+    }
+}
+```
+
+> **Importante:** Testcontainers requer Docker rodando localmente. Cada classe de teste cria um container PostgreSQL isolado, garantindo que os testes não interferem entre si.
+
+---
+
 ## Frontend — Testes Unitários (Jasmine + TestBed)
 
 ### Service
