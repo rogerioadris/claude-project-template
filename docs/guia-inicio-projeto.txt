@@ -1,0 +1,118 @@
+GUIA: COMO INICIAR UM PROJETO NOVO COM O TEMPLATE
+===================================================
+
+1. CLONE O TEMPLATE
+-------------------
+git clone <url-do-template> meu-projeto
+cd meu-projeto
+
+
+2. DESCREVA O PROJETO NO CLAUDE.md
+-----------------------------------
+Abra o CLAUDE.md e preencha os placeholders:
+
+  ## Visão Geral do Projeto
+
+  **Sistema de Gestão de Pedidos** — gerencia pedidos, clientes, produtos
+  e pagamentos para e-commerce.
+
+Essa descrição dá contexto ao Claude em toda conversa futura.
+Quanto mais claro, melhor ele executa.
+
+
+3. DESCREVA TODAS AS FUNCIONALIDADES NO TASKS.md
+-------------------------------------------------
+Mapeie tudo que o sistema precisa fazer, dividido em fases. Exemplo:
+
+  # TASKS.md
+
+  ## Visão Geral das Fases
+
+  | Fase | Descrição                        | Status |
+  |------|----------------------------------|--------|
+  | 1    | Infraestrutura e Autenticação    | ⬜     |
+  | 2    | Cadastros Base                   | ⬜     |
+  | 3    | Pedidos e Pagamentos             | ⬜     |
+  | 4    | Dashboard e Relatórios           | ⬜     |
+
+  ---
+
+  ## Fase 1 — Infraestrutura e Autenticação
+
+  - [ ] Bootstrap backend (solution, projetos, DI, pipeline)
+  - [ ] Bootstrap frontend (Angular, Tabler, layout principal)
+  - [ ] Docker Compose (PostgreSQL, Redis, RabbitMQ)
+  - [ ] Entidade User + migration
+  - [ ] Login (JWT) + Refresh Token
+  - [ ] Registro de usuário
+  - [ ] Auth Guard + interceptors no frontend
+  - [ ] Tela de login
+
+  ## Fase 2 — Cadastros Base
+
+  - [ ] CRUD de Clientes (backend)
+  - [ ] CRUD de Clientes (frontend)
+  - [ ] CRUD de Produtos (backend)
+  - [ ] CRUD de Produtos (frontend)
+  - [ ] CRUD de Categorias (backend + frontend)
+
+  ## Fase 3 — Pedidos e Pagamentos
+
+  - [ ] Entidade Pedido com itens
+  - [ ] Criar pedido (command + validação de estoque)
+  - [ ] Listar/detalhar pedidos
+  - [ ] Processamento de pagamento (integração gateway)
+  - [ ] Consumer RabbitMQ para confirmação de pagamento
+  - [ ] Telas de pedido no frontend
+
+  ## Fase 4 — Dashboard e Relatórios
+
+  - [ ] Dashboard com totalizadores
+  - [ ] Relatório de vendas por período
+  - [ ] Relatório de produtos mais vendidos
+
+
+4. COMO FUNCIONA NA PRÁTICA
+----------------------------
+O workflow é iterativo — trabalhe uma fase por vez, um item por vez:
+
+  1. Atualize o CLAUDE.md → "Fase em andamento: Fase 1"
+  2. Abra o Claude Code
+  3. Peça: "execute o item 1 da fase 1"
+     → O Claude invoca /project-bootstrap automaticamente
+     → Cria a solution, projetos, configura DI, faz commit
+  4. Peça: "próximo item"
+     → O Claude lê o TASKS.md, identifica o próximo [ ]
+     → Executa, marca [x], faz commit
+  5. Repita até a fase acabar
+
+
+5. DICAS PARA DESCREVER BEM AS FUNCIONALIDADES
+-----------------------------------------------
+BOM (o Claude entende e executa sozinho):
+  - [ ] CRUD de Clientes: nome, email, CPF/CNPJ, telefone, endereço.
+        CPF/CNPJ único. Listagem paginada com busca por nome/documento.
+
+AINDA MELHOR (com regras de negócio):
+  - [ ] Criar Pedido: cliente obrigatório, mínimo 1 item, validar estoque
+        antes de reservar, valor total em centavos (long). Se estoque
+        insuficiente → erro de negócio (sem retry). Após criar → publicar
+        evento PedidoCriado no RabbitMQ.
+
+RUIM (vago demais):
+  - [ ] Implementar pedidos
+
+
+6. ESTRUTURA RECOMENDADA DE FASES
+----------------------------------
+  | Fase | Conteúdo típico                           |
+  |------|-------------------------------------------|
+  | 1    | Infra, auth, layout base                  |
+  | 2    | Cadastros simples (CRUD puro)             |
+  | 3    | Features core do negócio                  |
+  | 4    | Integrações externas, mensageria          |
+  | 5    | Dashboard, relatórios, polish             |
+
+Regra prática: cada item do TASKS.md deve ser completável em 1 sessão
+do Claude (1 entidade + command + query + controller + testes + frontend).
+Se é grande demais, quebre em sub-itens.

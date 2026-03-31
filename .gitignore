@@ -39,5 +39,8 @@ Thumbs.db
 # Docker
 docker-compose.override.yml
 
+# Docs pessoais (não usar como referência)
+docs/
+
 # Misc
 *.log
