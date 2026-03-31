@@ -53,6 +53,11 @@ Ao receber uma tarefa que envolva criar novo recurso, feature ou configurar o pr
 | `/refactoring` | Renomear features, extrair componentes, mover lógica com segurança |
 | `/performance` | N+1, compiled queries, cache Redis, bundle size, EXPLAIN ANALYZE |
 | `/git-workflow` | Branching, Conventional Commits, PR template, release workflow |
+| `/error-handling` | Tratamento de erros: middleware global, ErrorOr→HTTP, interceptor Angular |
+| `/configuration` | Options pattern, appsettings, secrets, variáveis de ambiente |
+| `/deployment` | Dockerfiles multi-stage, CI/CD GitHub Actions, docker-compose.prod |
+| `/distributed-patterns` | Outbox Pattern, Saga MassTransit, idempotência, OpenTelemetry |
+| `/angular-forms` | Reactive Forms tipados, validação, máscaras, ControlValueAccessor |
 
 
 ## Regras Absolutas (memorize — valem sempre)
