@@ -32,6 +32,8 @@ public sealed class Example
     public DateTime? UpdatedAt  { get; private set; }
 
     // Toda mutação via método público — sem setters públicos
+    // Nota: DomainException é válida dentro de entidades para proteção de invariantes.
+    // A regra "nunca lance exceção" aplica-se aos Handlers, que devem usar ErrorOr.
     public void UpdateName(string name)
     {
         if (string.IsNullOrWhiteSpace(name))

@@ -2,6 +2,8 @@
 
 Checklists para inicialização do projeto. Execute uma única vez ao criar um novo projeto baseado neste template.
 
+> **Importante:** Substitua `{NomeProjeto}` pelo nome real do projeto em todos os arquivos CLAUDE.md e skills antes de começar.
+
 ---
 
 ## Backend — Setup Inicial

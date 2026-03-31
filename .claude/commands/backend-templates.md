@@ -139,8 +139,8 @@ app.Run();
 MediatR 12.*, FluentValidation 11.*, ErrorOr 2.*
 
 <!-- Infrastructure -->
-Microsoft.EntityFrameworkCore 8.*, Npgsql.EntityFrameworkCore.PostgreSQL 8.*
-BCrypt.Net-Next 4.*, Microsoft.AspNetCore.Authentication.JwtBearer 8.*
+Microsoft.EntityFrameworkCore 9.*, Npgsql.EntityFrameworkCore.PostgreSQL 9.*
+BCrypt.Net-Next 4.*, Microsoft.AspNetCore.Authentication.JwtBearer 9.*
 StackExchange.Redis, MassTransit.RabbitMQ (ou RabbitMQ.Client)
 
 <!-- API -->

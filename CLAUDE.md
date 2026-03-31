@@ -17,7 +17,7 @@ Toda documentação, comentários e mensagens de commit devem ser escritos em **
 
 | Camada | Tecnologia | Versão |
 |--------|-----------|--------|
-| Backend | .NET / ASP.NET Core | 8.x |
+| Backend | .NET / ASP.NET Core | 9.x |
 | Frontend | Angular (Standalone) | 21.x |
 | Banco de Dados | PostgreSQL | 16+ |
 | Cache / Lock | Redis | — |
@@ -54,12 +54,6 @@ Ao receber uma tarefa que envolva criar novo recurso, feature ou configurar o pr
 | `/performance` | N+1, compiled queries, cache Redis, bundle size, EXPLAIN ANALYZE |
 | `/git-workflow` | Branching, Conventional Commits, PR template, release workflow |
 
-<!-- TODO: criar skills quando estes docs forem escritos:
-  docs/domain.md → /domain-reference
-  docs/database.md → /database-schema
-  backend/docs/infra.md → /backend-infra
-  backend/docs/api.md → /api-reference
--->
 
 ## Regras Absolutas (memorize — valem sempre)
 
@@ -67,7 +61,7 @@ Ao receber uma tarefa que envolva criar novo recurso, feature ou configurar o pr
 2. **UUID v7** para todas as chaves primárias novas (ordenação por tempo, performance no PostgreSQL).
 3. **`DateTime.UtcNow`** sempre — nunca `DateTime.Now`.
 4. **Nenhum setter público** nas entidades de domínio.
-5. **Nunca lance exceção** para erros de negócio nos Handlers — use `ErrorOr`.
+5. **Nunca lance exceção** para erros de negócio nos Handlers — use `ErrorOr`. (Nota: `DomainException` é válida dentro de entidades para proteção de invariantes do domínio.)
 6. **Nunca use `goto`** — use flags, métodos auxiliares ou reestruture o fluxo de controle.
 7. **Erro de negócio ≠ Erro de infraestrutura:** business error → falha direta sem retry; infra error → retry com backoff.
 8. **RedLock obrigatório** ao atualizar saldos ou estados concorrentes — chave `{recurso}:{id}`.

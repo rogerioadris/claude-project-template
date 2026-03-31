@@ -6,7 +6,7 @@ Template pré-configurado para projetos fullstack com **Claude Code**. Inclui co
 
 | Camada | Tecnologia | Versão |
 |--------|-----------|--------|
-| Backend | .NET / ASP.NET Core | 8.x |
+| Backend | .NET / ASP.NET Core | 9.x |
 | Frontend | Angular (Standalone) | 21.x |
 | Banco de Dados | PostgreSQL | 16+ |
 | Cache / Lock | Redis | — |
@@ -21,9 +21,15 @@ Template pré-configurado para projetos fullstack com **Claude Code**. Inclui co
 ├── frontend/
 │   └── CLAUDE.md              # Convenções e comandos do frontend
 ├── .claude/
-│   ├── commands/              # 13 skills para Claude Code
+│   ├── commands/              # 24 skills para Claude Code
 │   └── settings.json          # Hooks de automação
+├── .github/
+│   └── pull_request_template.md
+├── .editorconfig              # Formatação consistente (C#, TS, etc.)
+├── .gitignore                 # .NET, Node, IDEs, secrets
+├── docker-compose.example.yml # PostgreSQL, Redis, RabbitMQ
 ├── CLAUDE.md                  # Regras absolutas e skills disponíveis
+├── TASKS.md                   # Tracking de fases e tarefas
 └── README.md
 ```
 
